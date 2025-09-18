@@ -3,9 +3,9 @@
 import { motion } from "framer-motion"
 import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar"
 import { SimpleHeader } from "@/components/layout/simple-header"
-import { StatsGrid } from "@/components/dashboard/stats-grid"
-import { ActivityChart } from "@/components/dashboard/activity-chart"
-import { useIsMobile } from "@/hooks/use-mobile"
+import { StatsGrid } from "@/components/dashboard/statsGrid"
+import { ActivityChart } from "@/components/dashboard/activityChart"
+import { useIsMobile } from "@/hooks/useMobile"
 
 const containerVariants = {
   hidden: { opacity: 0 },
