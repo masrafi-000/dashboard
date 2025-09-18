@@ -8,7 +8,7 @@ import { LoadingSpinner } from "@/components/ui/loadingSpinner";
 import { Modal } from "@/components/ui/model";
 import { useFetch } from "@/hooks/useFetch";
 import { useIsMobile } from "@/hooks/useMobile";
-import { motion } from "framer-motion";
+import { circOut, motion } from "framer-motion";
 import { useState } from "react";
 
 interface User {
@@ -52,7 +52,7 @@ const rowVariants = {
     x: 0,
     transition: {
       duration: 0.3,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
 };
@@ -98,7 +98,7 @@ export default function UsersPage() {
 
               {loading && (
                 <div className="flex justify-center items-center h-48 sm:h-64">
-                  <LoadingSpinner size={isMobile ? "default" : "lg"} />
+                  <LoadingSpinner size={isMobile ? "md" : "lg"} />
                   <span className="ml-3 text-sm sm:text-base text-muted-foreground">
                     Loading users...
                   </span>

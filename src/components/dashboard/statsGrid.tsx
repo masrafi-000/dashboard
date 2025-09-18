@@ -1,30 +1,42 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { TrendingUp, Users, FileText, Activity, Loader2, AlertCircle } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { useStats } from "@/hooks/useDashboardData"
-import { useIsMobile } from "@/hooks/useMobile"
-import { fadeInUp, staggerContainer, hoverScale, tapScale, scaleIn } from "@/lib/animations"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useStats } from "@/hooks/useDashboardData";
+import { motion } from "framer-motion";
+import {
+  Activity,
+  AlertCircle,
+  FileText,
+  Loader2,
+  TrendingUp,
+  Users,
+} from "lucide-react";
+// import { useIsMobile } from "@/hooks/useMobile"
+import {
+  fadeInUp,
+  hoverScale,
+  scaleIn,
+  staggerContainer,
+  tapScale,
+} from "@/lib/animations";
 
 const iconMap = {
   "Total Users": Users,
   "Active Posts": FileText,
   Engagement: TrendingUp,
   Activity: Activity,
-}
+};
 
 const colorMap = {
   "Total Users": "text-blue-600",
   "Active Posts": "text-green-600",
   Engagement: "text-purple-600",
   Activity: "text-orange-600",
-}
+};
 
 export function StatsGrid() {
-  const { data: stats, isLoading, error, refetch } = useStats()
-  const isMobile = useIsMobile()
+  const { data: stats, isLoading, error, refetch } = useStats();
 
   if (isLoading) {
     return (
@@ -45,8 +57,17 @@ export function StatsGrid() {
                       scale: [1, 1.1, 1],
                     }}
                     transition={{
-                      rotate: { duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-                      scale: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+                      rotate: {
+                        duration: 1,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: (t) => t,
+                      },
+                      scale: {
+                        duration: 2,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: (t) =>
+                          t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+                      },
                     }}
                   >
                     <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
@@ -57,7 +78,7 @@ export function StatsGrid() {
           </motion.div>
         ))}
       </motion.div>
-    )
+    );
   }
 
   if (error) {
@@ -81,8 +102,12 @@ export function StatsGrid() {
                 <AlertCircle className="h-6 w-6 sm:h-8 sm:w-8 text-destructive" />
               </motion.div>
               <div className="text-center">
-                <p className="text-sm font-medium text-foreground mb-1">Failed to load stats</p>
-                <p className="text-xs text-muted-foreground mb-3 sm:mb-4">Please try again</p>
+                <p className="text-sm font-medium text-foreground mb-1">
+                  Failed to load stats
+                </p>
+                <p className="text-xs text-muted-foreground mb-3 sm:mb-4">
+                  Please try again
+                </p>
                 <motion.div whileHover={hoverScale} whileTap={tapScale}>
                   <Button onClick={() => refetch()} size="sm">
                     Retry
@@ -93,7 +118,7 @@ export function StatsGrid() {
           </CardContent>
         </Card>
       </motion.div>
-    )
+    );
   }
 
   return (
@@ -104,16 +129,24 @@ export function StatsGrid() {
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8"
     >
       {stats?.map((stat, index) => {
-        const Icon = iconMap[stat.title as keyof typeof iconMap] || TrendingUp
-        const color = colorMap[stat.title as keyof typeof colorMap] || "text-gray-600"
+        const Icon = iconMap[stat.title as keyof typeof iconMap] || TrendingUp;
+        const color =
+          colorMap[stat.title as keyof typeof colorMap] || "text-gray-600";
 
         return (
-          <motion.div key={stat.title} variants={fadeInUp} whileHover={hoverScale} whileTap={tapScale}>
+          <motion.div
+            key={stat.title}
+            variants={fadeInUp}
+            whileHover={hoverScale}
+            whileTap={tapScale}
+          >
             <Card>
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 truncate">{stat.title}</p>
+                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 truncate">
+                      {stat.title}
+                    </p>
                     <motion.p
                       className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground"
                       initial={{ scale: 0.8, opacity: 0 }}
@@ -123,7 +156,9 @@ export function StatsGrid() {
                       {stat.value}
                     </motion.p>
                     <motion.p
-                      className={`text-xs mt-1 ${stat.trend === "up" ? "text-green-600" : "text-red-600"}`}
+                      className={`text-xs mt-1 ${
+                        stat.trend === "up" ? "text-green-600" : "text-red-600"
+                      }`}
                       initial={{ y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: index * 0.1 + 0.4, duration: 0.3 }}
@@ -140,7 +175,7 @@ export function StatsGrid() {
                     transition={{
                       delay: index * 0.1 + 0.6,
                       duration: 0.6,
-                      ease: "easeInOut",
+                      ease: (t) => t * (2 - t),
                     }}
                   >
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -149,8 +184,8 @@ export function StatsGrid() {
               </CardContent>
             </Card>
           </motion.div>
-        )
+        );
       })}
     </motion.div>
-  )
+  );
 }

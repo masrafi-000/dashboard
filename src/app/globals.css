@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 :root {
   --background: #ffffff;
@@ -72,9 +71,8 @@
   --sidebar-ring: oklch(0.6 0.12 195 / 0.5);
 }
 
-
 @theme inline {
- --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);

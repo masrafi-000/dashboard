@@ -1,3 +1,4 @@
+import { circOut, easeInOut } from "framer-motion";
 export const fadeInUp = {
   hidden: {
     opacity: 0,
@@ -8,10 +9,10 @@ export const fadeInUp = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
-}
+};
 
 export const staggerContainer = {
   hidden: { opacity: 0 },
@@ -22,7 +23,7 @@ export const staggerContainer = {
       delayChildren: 0.1,
     },
   },
-}
+};
 
 export const slideInLeft = {
   hidden: {
@@ -34,10 +35,10 @@ export const slideInLeft = {
     x: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
-}
+};
 
 export const slideInRight = {
   hidden: {
@@ -49,10 +50,10 @@ export const slideInRight = {
     x: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
-}
+};
 
 export const scaleIn = {
   hidden: {
@@ -64,23 +65,23 @@ export const scaleIn = {
     scale: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
-}
+};
 
 export const hoverScale = {
   scale: 1.02,
   transition: {
     duration: 0.2,
-    ease: "easeInOut",
+    ease: easeInOut,
   },
-}
+};
 
 export const tapScale = {
   scale: 0.98,
   transition: {
     duration: 0.1,
-    ease: "easeInOut",
+    ease: easeInOut,
   },
-}
+};

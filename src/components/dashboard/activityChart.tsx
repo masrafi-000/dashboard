@@ -106,7 +106,6 @@ export function ActivityChart() {
                 }}
                 whileHover={{
                   scale: isMobile ? 1.02 : 1.05,
-                  backgroundColor: "hsl(var(--primary) / 0.8)",
                   transition: { duration: 0.2 },
                 }}
                 className="bg-primary rounded-t-lg flex-1 max-w-8 sm:max-w-12 min-h-2 cursor-pointer"
@@ -114,7 +113,7 @@ export function ActivityChart() {
             ))}
           </div>
           <motion.div
-            className="flex justify-between text-xs sm:text-sm text-muted-foreground mt-2 sm:mt-4 px-2 sm:px-4"
+            className="flex  justify-center gap-5 md:gap-10 text-xs sm:text-sm text-muted-foreground mt-2 sm:mt-4 px-2 sm:px-4"
             initial="hidden"
             animate="visible"
             variants={{
@@ -137,7 +136,8 @@ export function ActivityChart() {
                 }}
                 className="truncate"
               >
-                {isMobile ? item.day.slice(0, 3) : item.day}
+               
+                { item.day.slice(0, 3) }
               </motion.span>
             ))}
           </motion.div>

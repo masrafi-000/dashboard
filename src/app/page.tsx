@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar"
-import { SimpleHeader } from "@/components/layout/simple-header"
-import { StatsGrid } from "@/components/dashboard/statsGrid"
-import { ActivityChart } from "@/components/dashboard/activityChart"
-import { useIsMobile } from "@/hooks/useMobile"
+import { ActivityChart } from "@/components/dashboard/activityChart";
+import { StatsGrid } from "@/components/dashboard/statsGrid";
+import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar";
+import { SimpleHeader } from "@/components/layout/simple-header";
+import { useIsMobile } from "@/hooks/useMobile";
+import { motion } from "framer-motion";
+
+import { circOut } from "framer-motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,7 +17,7 @@ const containerVariants = {
       staggerChildren: 0.1,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -24,13 +26,13 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: circOut,
     },
   },
-}
+};
 
 export default function DashboardPage() {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex h-screen bg-background">
@@ -52,7 +54,9 @@ export default function DashboardPage() {
                   Welcome back
                 </h1>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  {isMobile ? "Your dashboard overview" : "Here's what's happening with your dashboard today."}
+                  {isMobile
+                    ? "Your dashboard overview"
+                    : "Here's what's happening with your dashboard today."}
                 </p>
               </div>
             </motion.div>
@@ -68,5 +72,5 @@ export default function DashboardPage() {
         </main>
       </div>
     </div>
-  )
+  );
 }

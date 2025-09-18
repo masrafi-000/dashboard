@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import type { ReactNode } from "react"
+import { circOut, motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface PageTransitionProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const pageVariants = {
@@ -20,13 +20,12 @@ const pageVariants = {
     opacity: 0,
     y: -20,
   },
-}
+};
 
 const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
+  ease: circOut,
   duration: 0.4,
-}
+};
 
 export default function PageTransition({ children }: PageTransitionProps) {
   return (
@@ -40,7 +39,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     >
       {children}
     </motion.div>
-  )
+  );
 }
 
-export { PageTransition }
+export { PageTransition };
