@@ -23,22 +23,22 @@ import { z } from "zod";
 
 const registerSchema = z
   .object({
-    firstName: z.string().min(2, { message: "নামের প্রথম অংশ আবশ্যক" }),
-    lastName: z.string().min(2, { message: "নামের শেষ অংশ আবশ্যক" }),
-    email: z.string().email({ message: "সঠিক ইমেইল ঠিকানা দিন" }),
-    phone: z.string().min(11, { message: "সঠিক ফোন নম্বর দিন" }).max(14),
+    firstName: z.string().min(2, { message: "Required FirstName" }),
+    lastName: z.string().min(2, { message: "Required LastName" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    phone: z.string().min(11, { message: "Invalid phone number" }).max(14),
     password: z
       .string()
-      .min(6, { message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে" }),
+      .min(6, { message: "Password must be at least 6 characters long." }),
     confirmPassword: z
       .string()
-      .min(6, { message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে" }),
+      .min(6, { message: "Password must be at least 6 characters long." }),
     agreeToTerms: z.boolean().refine((val) => val === true, {
-      message: "শর্তাবলীতে সম্মতি প্রদান করতে হবে",
+      message: "Agree to terms and conditions",
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "পাসওয়ার্ড দুটি মিলছে না",
+    message: "The passwords don't match.",
     path: ["confirmPassword"],
   });
 
@@ -60,7 +60,6 @@ export default function RegisterPage() {
   const handleRegister = (data: registerFormData) => {
     console.log("Form Data: ", data);
   };
-
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -86,8 +85,6 @@ export default function RegisterPage() {
           <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
             Create your account to get started with Zettabyte Dashboard.
           </p>
-
-         
         </motion.div>
 
         {/* Righ Side - Register Form */}
@@ -290,7 +287,6 @@ export default function RegisterPage() {
                         ) : (
                           <EyeOff className="size-5" />
                         )}
-
                       </button>
                     </div>
                     {errors.confirmPassword && (
@@ -306,9 +302,12 @@ export default function RegisterPage() {
                   <Controller
                     name="agreeToTerms"
                     control={control}
-                    render={({field}) => (
-
-                      <Checkbox id="agreeToTerms" checked={field.value} onCheckedChange={field.onChange} />
+                    render={({ field }) => (
+                      <Checkbox
+                        id="agreeToTerms"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     )}
                   />
                   <label
@@ -321,13 +320,14 @@ export default function RegisterPage() {
                       className="text-blue-600 hover:text-blue-700 "
                     >
                       Terms and Conditions
-                    </Link>
-                    {" "}and{" "}
+                    </Link>{" "}
+                    and{" "}
                     <Link
                       href="/privacy"
                       className="text-blue-600 hover:text-blue-700 "
                     >
-                     {" "} Privacy Policy
+                      {" "}
+                      Privacy Policy
                     </Link>
                   </label>
                   {errors.agreeToTerms && (

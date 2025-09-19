@@ -1,16 +1,23 @@
-"use client"
-import { ArrowRight, Eye, EyeOff, LayoutDashboard, Lock, Mail } from "lucide-react";
-import Link from "next/link";
-import {motion} from "framer-motion"
-import {z} from "zod"
-import { useState } from "react";
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  LayoutDashboard,
+  Lock,
+  Mail,
+} from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { z } from "zod";
 
-import { useForm } from "react-hook-form";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 
 const loginSchema = z.object({
   email: z.string().email(""),
@@ -21,8 +28,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -42,8 +48,8 @@ export default function LoginPage() {
     setIsLoading(false);
   };
 
-  return(
-     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left side - Branding */}
         <motion.div
@@ -62,14 +68,9 @@ export default function LoginPage() {
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Welcome
             <span className="block text-green-900">to the dashboard</span>
-            
           </h1>
 
-          <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed  ">
-           
-          </p>
-
-          
+          <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed  "></p>
         </motion.div>
 
         {/* Right Side - Login Form */}
@@ -117,7 +118,7 @@ export default function LoginPage() {
                     htmlFor="password"
                     className="text-sm font-medium text-gray-700"
                   >
-                    পাসওয়ার্ড
+                    Password
                   </label>
                   <div className="relative">
                     <Lock className=" absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -192,7 +193,7 @@ export default function LoginPage() {
 
               <div className="text-center">
                 <p className="text-gray-600">
-                    Don&apos;t have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link
                     href="/auth/signup"
                     className="text-blue-600 hover:text-blue-700 font-medium"
@@ -207,5 +208,5 @@ export default function LoginPage() {
       </div>
       <div></div>
     </div>
-  )
+  );
 }
