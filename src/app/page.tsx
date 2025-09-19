@@ -19,7 +19,7 @@ export default function LandingPage() {
         {/* CTA Buttons */}
         <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
-            href="/signup"
+            href="/auth/signup"
             className="w-full sm:w-auto rounded-md bg-green-950 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-blue-900"
           >
             Sign Up

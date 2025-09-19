@@ -24,7 +24,7 @@ export function ResponsiveSidebar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleSignOut = () => {
-    router.push("/login")
+    router.push("/auth/login")
   }
 
   const sidebarContent = (
