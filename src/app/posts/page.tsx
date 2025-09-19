@@ -1,25 +1,31 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar"
-import { SimpleHeader } from "@/components/layout/simple-header"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSpinner } from "@/components/ui/loadingSpinner"
-import { RetryButton } from "@/components/ui/retryButton"
-import { useIsMobile } from "@/hooks/useMobile"
-import { useFetch } from "@/hooks/useFetch"
-import PageTransition from "@/components/layout/pageTransition"
-import { ArrowRight } from "lucide-react"
+import PageTransition from "@/components/layout/pageTransition";
+import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar";
+import { SimpleHeader } from "@/components/layout/simple-header";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/ui/loadingSpinner";
+import { RetryButton } from "@/components/ui/retryButton";
+import { useFetch } from "@/hooks/useFetch";
+import { useIsMobile } from "@/hooks/useMobile";
+import { motion, type Variants } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 interface Post {
-  id: number
-  title: string
-  body: string
-  userId: number
+  id: number;
+  title: string;
+  body: string;
+  userId: number;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -27,9 +33,9 @@ const containerVariants = {
       staggerChildren: 0.05,
     },
   },
-}
+};
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -39,11 +45,16 @@ const itemVariants = {
       ease: "easeOut",
     },
   },
-}
+};
 
 export default function PostsPage() {
-  const { data: posts, loading, error, refetch } = useFetch<Post[]>("https://jsonplaceholder.typicode.com/posts")
-  const isMobile = useIsMobile()
+  const {
+    data: posts,
+    loading,
+    error,
+    refetch,
+  } = useFetch<Post[]>("https://jsonplaceholder.typicode.com/posts");
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex h-screen bg-background">
@@ -61,14 +72,18 @@ export default function PostsPage() {
               >
                 <h1 className="text-2xl sm:text-3xl font-bold mb-2">Posts</h1>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  {isMobile ? "Browse community posts" : "Browse through all available posts from our community."}
+                  {isMobile
+                    ? "Browse community posts"
+                    : "Browse through all available posts from our community."}
                 </p>
               </motion.div>
 
               {loading && (
                 <div className="flex justify-center items-center h-48 sm:h-64">
-                  <LoadingSpinner size={isMobile ? "default" : "lg"} />
-                  <span className="ml-3 text-sm sm:text-base text-muted-foreground">Loading posts...</span>
+                  <LoadingSpinner size={isMobile ? "md" : "lg"} />
+                  <span className="ml-3 text-sm sm:text-base text-muted-foreground">
+                    Loading posts...
+                  </span>
                 </div>
               )}
 
@@ -80,9 +95,15 @@ export default function PostsPage() {
                 >
                   <Card className="max-w-md mx-auto border-destructive/20">
                     <CardContent className="p-4 sm:p-6">
-                      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">⚠️</div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 text-destructive">Failed to load posts</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">{error}</p>
+                      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">
+                        ⚠️
+                      </div>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 text-destructive">
+                        Failed to load posts
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                        {error}
+                      </p>
                       <RetryButton onRetry={refetch} />
                     </CardContent>
                   </Card>
@@ -111,10 +132,16 @@ export default function PostsPage() {
                             </div>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription className="line-clamp-3 text-pretty text-sm">{post.body}</CardDescription>
+                            <CardDescription className="line-clamp-3 text-pretty text-sm">
+                              {post.body}
+                            </CardDescription>
                             <div className="mt-3 sm:mt-4 flex items-center justify-between">
-                              <span className="text-xs text-muted-foreground">User {post.userId}</span>
-                              <span className="text-xs text-primary font-medium flex items-center gap-2 ">Read more <ArrowRight size={20} /></span>
+                              <span className="text-xs text-muted-foreground">
+                                User {post.userId}
+                              </span>
+                              <span className="text-xs text-primary font-medium flex items-center gap-2 ">
+                                Read more <ArrowRight size={20} />
+                              </span>
                             </div>
                           </CardContent>
                         </Card>
@@ -128,5 +155,5 @@ export default function PostsPage() {
         </main>
       </div>
     </div>
-  )
+  );
 }
