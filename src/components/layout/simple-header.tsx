@@ -41,11 +41,9 @@ export function SimpleHeader() {
             </Button>
           </motion.div>
 
-          <motion.div whileHover={hoverScale} whileTap={tapScale} className="hidden sm:block">
-            <Button variant="ghost" size="sm" className="rounded-full h-8 w-8 p-0">
-              <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-xs font-medium text-primary">U</span>
-              </div>
+          <motion.div whileHover={hoverScale} whileTap={tapScale} className="hidden sm:block bg-orange-100 rounded-full">
+            <Button variant="ghost" size="default" className="p-0 rounded-full">
+             <div className="text-lg w-full flex items-center justify-center">U</div>
             </Button>
           </motion.div>
         </div>

@@ -10,7 +10,7 @@ import { useIsMobile } from "@/hooks/useMobile"
 import { slideInLeft, staggerContainer, fadeInUp, hoverScale, tapScale } from "@/lib/animations"
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home },
+  { name: "Dashboard", href: "/dashboard", icon: Home },
   { name: "Posts", href: "/posts", icon: FileText },
   { name: "Users", href: "/users", icon: Users },
   { name: "Auth", href: "/auth", icon: User },

@@ -1,76 +1,42 @@
 "use client";
 
-import { ActivityChart } from "@/components/dashboard/activityChart";
-import { StatsGrid } from "@/components/dashboard/statsGrid";
-import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar";
-import { SimpleHeader } from "@/components/layout/simple-header";
-import { useIsMobile } from "@/hooks/useMobile";
-import { motion } from "framer-motion";
+import Link from "next/link";
 
-import { circOut } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: circOut,
-    },
-  },
-};
-
-export default function DashboardPage() {
-  const isMobile = useIsMobile();
-
+export default function LandingPage() {
   return (
-    <div className="flex h-screen bg-background">
-      <ResponsiveSidebar />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl text-center">
+        {/* Brand / Welcome */}
+        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+          Welcome to <span className="text-green-950">Zettabyte</span> Dashboard
+        </h1>
 
-      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-        <SimpleHeader />
+        {/* Subtext */}
+        <p className="mt-4 text-base text-gray-600 sm:text-lg md:text-xl">
+          Manage your data efficiently with a simple and powerful dashboard.
+        </p>
 
-        <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-7xl mx-auto space-y-4 sm:space-y-6"
+        {/* CTA Buttons */}
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/signup"
+            className="w-full sm:w-auto rounded-md bg-green-950 px-6 py-3 text-base font-medium text-white shadow-sm transition hover:bg-blue-900"
           >
-            <motion.div variants={itemVariants}>
-              <div className="mb-4 sm:mb-6">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-1 sm:mb-2">
-                  Welcome back
-                </h1>
-                <p className="text-sm sm:text-base text-muted-foreground">
-                  {isMobile
-                    ? "Your dashboard overview"
-                    : "Here's what's happening with your dashboard today."}
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <StatsGrid />
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <ActivityChart />
-            </motion.div>
-          </motion.div>
-        </main>
+            Sign Up
+          </Link>
+          <Link
+            href="/dashboard"
+            className="w-full sm:w-auto rounded-md border border-gray-300 px-6 py-3 text-base font-medium text-gray-700 transition hover:bg-gray-100"
+          >
+            Go to Dashboard
+          </Link>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-4 text-xs text-gray-500 sm:text-sm">
+        © {new Date().getFullYear()} Zettabyte. All rights reserved.
+      </footer>
     </div>
   );
 }
