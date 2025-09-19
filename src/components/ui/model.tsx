@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
+import { X } from "lucide-react"
 import { useEffect } from "react"
 import type { ReactNode } from "react"
 
@@ -55,13 +56,13 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
               onClick={(e) => e.stopPropagation()}
             >
               {title && (
-                <div className="px-6 py-4 border-b border-border">
+                <div className="px-6 py-4 border-b border-border flex items-center justify-between">
                   <h2 className="text-lg font-semibold">{title}</h2>
                   <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+                    className="relative  text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    ✕
+                    <X size={24} />
                   </button>
                 </div>
               )}

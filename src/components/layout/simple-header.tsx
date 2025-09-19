@@ -11,11 +11,14 @@ export function SimpleHeader() {
   const isMobile = useIsMobile()
 
   return (
+    <>
+    
+    
     <motion.header
       variants={slideInRight}
       initial="hidden"
       animate="visible"
-      className="bg-background border-b border-border px-4 sm:px-6 py-3 sm:py-4"
+      className="bg-background border-b border-border ml-14 xl:ml-0 px-4 sm:px-6 py-3 sm:py-4"
     >
       <div className="flex items-center justify-between gap-4">
         <motion.div
@@ -27,12 +30,12 @@ export function SimpleHeader() {
             <Search className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             <Input
               placeholder={isMobile ? "Search..." : "Search dashboard..."}
-              className="pl-7 sm:pl-10 text-sm sm:text-base h-8 sm:h-10"
+              className="hidden md:block pl-7 sm:pl-10 text-sm sm:text-base h-8 sm:h-10"
             />
           </div>
         </motion.div>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-3 sm:gap-2">
           <motion.div whileHover={hoverScale} whileTap={tapScale}>
             <Button variant="ghost" size={isMobile ? "sm" : "default"} className="relative">
               <Bell className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -41,7 +44,7 @@ export function SimpleHeader() {
             </Button>
           </motion.div>
 
-          <motion.div whileHover={hoverScale} whileTap={tapScale} className="hidden sm:block bg-orange-100 rounded-full">
+          <motion.div whileHover={hoverScale} whileTap={tapScale} className=" sm:block bg-orange-100 rounded-full">
             <Button variant="ghost" size="default" className="p-0 rounded-full">
              <div className="text-lg w-full flex items-center justify-center">U</div>
             </Button>
@@ -49,5 +52,6 @@ export function SimpleHeader() {
         </div>
       </div>
     </motion.header>
+    </>
   )
 }

@@ -36,7 +36,7 @@ interface CardContentProps {
 }
 
 export function CardContent({ children, className = "" }: CardContentProps) {
-  return <div className={`p-6 pt-0 ${className}`}>{children}</div>
+  return <div className={`p-6  ${className}`}>{children}</div>
 }
 
 interface CardTitleProps {

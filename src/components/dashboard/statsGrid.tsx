@@ -141,7 +141,7 @@ export function StatsGrid() {
             whileTap={tapScale}
           >
             <Card>
-              <CardContent className="p-4 sm:p-6">
+              <CardContent className="p-4 sm:p-6 ">
                 <div className="flex items-center justify-between">
                   <div className="min-w-0 flex-1">
                     <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 truncate">

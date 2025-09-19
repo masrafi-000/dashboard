@@ -10,6 +10,7 @@ import { RetryButton } from "@/components/ui/retryButton"
 import { useIsMobile } from "@/hooks/useMobile"
 import { useFetch } from "@/hooks/useFetch"
 import PageTransition from "@/components/layout/pageTransition"
+import { ArrowRight } from "lucide-react"
 
 interface Post {
   id: number
@@ -113,7 +114,7 @@ export default function PostsPage() {
                             <CardDescription className="line-clamp-3 text-pretty text-sm">{post.body}</CardDescription>
                             <div className="mt-3 sm:mt-4 flex items-center justify-between">
                               <span className="text-xs text-muted-foreground">User {post.userId}</span>
-                              <span className="text-xs text-primary font-medium">Read more →</span>
+                              <span className="text-xs text-primary font-medium flex items-center gap-2 ">Read more <ArrowRight size={20} /></span>
                             </div>
                           </CardContent>
                         </Card>

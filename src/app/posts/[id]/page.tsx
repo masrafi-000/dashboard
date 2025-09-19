@@ -1,79 +1,89 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { useParams } from "next/navigation"
-import Header from "@/components/layout/header"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSpinner } from "@/components/ui/loadingSpinner"
-import { useFetch } from "@/hooks/useFetch"
-import React from "react"
-import PageTransition from "@/components/layout/pageTransition"
-import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar"
+import PageTransition from "@/components/layout/pageTransition";
+import { ResponsiveSidebar } from "@/components/layout/responsive-sidebar";
+import { SimpleHeader } from "@/components/layout/simple-header";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/ui/loadingSpinner";
+import { useFetch } from "@/hooks/useFetch";
+import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 interface Post {
-  id: number
-  title: string
-  body: string
-  userId: number
+  id: number;
+  title: string;
+  body: string;
+  userId: number;
 }
 
 interface User {
-  id: number
-  name: string
-  username: string
-  email: string
+  id: number;
+  name: string;
+  username: string;
+  email: string;
 }
 
 interface Comment {
-  id: number
-  postId: number
-  name: string
-  email: string
-  body: string
+  id: number;
+  postId: number;
+  name: string;
+  email: string;
+  body: string;
 }
 
 export default function PostDetailPage() {
-  const params = useParams()
-  const postId = params.id as string
+  const params = useParams();
+  const postId = params.id as string;
 
   const {
     data: post,
     loading: postLoading,
     error: postError,
-  } = useFetch<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+  } = useFetch<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`);
 
   const { data: user, loading: userLoading } = useFetch<User>(
     post ? `https://jsonplaceholder.typicode.com/users/${post.userId}` : "",
-    { immediate: false },
-  )
+    { immediate: false }
+  );
 
   const { data: comments, loading: commentsLoading } = useFetch<Comment[]>(
-    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
-  )
+    `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+  );
 
-  // Fetch user data when post is loaded
-  React.useEffect(() => {
+  // Fetch user data when post is loaded and user not fetched data
+  useEffect(() => {
     if (post && !user && !userLoading) {
-      // This will trigger the user fetch
+      // This will trigger the user fetch and re-render when done
+      console.log("Fetching user data for userId:", post.userId);
     }
-  }, [post, user, userLoading])
+  }, [post, user, userLoading]);
 
   if (postLoading) {
     return (
       <div className="flex h-screen bg-background">
         <ResponsiveSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <Header />
+          <SimpleHeader />
           <main className="flex-1 overflow-y-auto p-6">
             <div className="flex justify-center items-center h-64">
               <LoadingSpinner size="lg" />
-              <span className="ml-3 text-muted-foreground">Loading post...</span>
+              <span className="ml-3 text-muted-foreground">
+                Loading post...
+              </span>
             </div>
           </main>
         </div>
       </div>
-    )
+    );
   }
 
   if (postError || !post) {
@@ -81,7 +91,7 @@ export default function PostDetailPage() {
       <div className="flex h-screen bg-background">
         <ResponsiveSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <Header />
+          <SimpleHeader />
           <main className="flex-1 overflow-y-auto p-6">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -95,11 +105,10 @@ export default function PostDetailPage() {
                   <p className="text-muted-foreground text-sm mb-4">
                     {postError || "The post you're looking for doesn't exist."}
                   </p>
-                  <Link
-                    href="/posts"
-                    className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-                  >
-                    ← Back to Posts
+                  <Link href="/posts">
+                    <div className="flex items-center justify-start gap-2 cursor-pointer text-primary">
+                      <ArrowLeft /> <p>Back to Posts</p>
+                    </div>
                   </Link>
                 </CardContent>
               </Card>
@@ -107,14 +116,14 @@ export default function PostDetailPage() {
           </main>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="flex h-screen bg-background">
       <ResponsiveSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
+        <SimpleHeader />
         <main className="flex-1 overflow-y-auto p-6">
           <PageTransition>
             <div className="max-w-4xl mx-auto">
@@ -124,11 +133,10 @@ export default function PostDetailPage() {
                 transition={{ duration: 0.5 }}
                 className="mb-6"
               >
-                <Link
-                  href="/posts"
-                  className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
-                >
-                  ← Back to Posts
+                <Link href="/posts">
+                  <div className="flex items-center justify-start gap-2 cursor-pointer text-primary">
+                    <ArrowLeft /> <p>Back to Posts</p>
+                  </div>
                 </Link>
               </motion.div>
 
@@ -140,7 +148,9 @@ export default function PostDetailPage() {
                 <Card className="mb-8">
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-2xl text-balance">{post.title}</CardTitle>
+                      <CardTitle className="text-2xl text-balance">
+                        {post.title}
+                      </CardTitle>
                       <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full ml-4 flex-shrink-0">
                         Post #{post.id}
                       </span>
@@ -148,9 +158,13 @@ export default function PostDetailPage() {
                     {user && (
                       <CardDescription className="flex items-center gap-2 mt-3">
                         <span className="font-medium">{user.name}</span>
-                        <span className="text-muted-foreground">(@{user.username})</span>
+                        <span className="text-muted-foreground">
+                          (@{user.username})
+                        </span>
                         <span className="text-muted-foreground">•</span>
-                        <span className="text-muted-foreground">{user.email}</span>
+                        <span className="text-muted-foreground">
+                          {user.email}
+                        </span>
                       </CardDescription>
                     )}
                   </CardHeader>
@@ -168,12 +182,16 @@ export default function PostDetailPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h2 className="text-xl font-semibold mb-4">Comments {comments && `(${comments.length})`}</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Comments {comments && `(${comments.length})`}
+                </h2>
 
                 {commentsLoading && (
                   <div className="flex justify-center items-center py-8">
                     <LoadingSpinner />
-                    <span className="ml-3 text-muted-foreground">Loading comments...</span>
+                    <span className="ml-3 text-muted-foreground">
+                      Loading comments...
+                    </span>
                   </div>
                 )}
 
@@ -189,12 +207,18 @@ export default function PostDetailPage() {
                         <Card>
                           <CardHeader className="pb-3">
                             <div className="flex items-center justify-between">
-                              <CardTitle className="text-base">{comment.name}</CardTitle>
-                              <span className="text-xs text-muted-foreground">{comment.email}</span>
+                              <CardTitle className="text-base">
+                                {comment.name}
+                              </CardTitle>
+                              <span className="text-xs text-muted-foreground">
+                                {comment.email}
+                              </span>
                             </div>
                           </CardHeader>
                           <CardContent>
-                            <p className="text-sm text-pretty leading-relaxed">{comment.body}</p>
+                            <p className="text-sm text-pretty leading-relaxed">
+                              {comment.body}
+                            </p>
                           </CardContent>
                         </Card>
                       </motion.div>
@@ -207,5 +231,5 @@ export default function PostDetailPage() {
         </main>
       </div>
     </div>
-  )
+  );
 }

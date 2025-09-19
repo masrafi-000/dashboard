@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Home, FileText, Users, User, LogOut, Menu, X } from "lucide-react"
+import { Home, FileText, Users,  LogOut, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useIsMobile } from "@/hooks/useMobile"
 import { slideInLeft, staggerContainer, fadeInUp, hoverScale, tapScale } from "@/lib/animations"
@@ -13,13 +13,19 @@ const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
   { name: "Posts", href: "/posts", icon: FileText },
   { name: "Users", href: "/users", icon: Users },
-  { name: "Auth", href: "/auth", icon: User },
 ]
+
+
 
 export function ResponsiveSidebar() {
   const pathname = usePathname()
   const isMobile = useIsMobile()
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleSignOut = () => {
+    router.push("/login")
+  }
 
   const sidebarContent = (
     <motion.div
@@ -69,7 +75,7 @@ export function ResponsiveSidebar() {
         </motion.ul>
       </nav>
 
-      <motion.div variants={fadeInUp} className="p-3 sm:p-4 border-t border-border">
+      <motion.div variants={fadeInUp} className="p-3 sm:p-4 border-t border-border" onClick={ handleSignOut}>
         <motion.div whileHover={hoverScale} whileTap={tapScale}>
           <Button variant="ghost" className="w-full justify-start text-sm sm:text-base" size="sm">
             <LogOut className="h-4 w-4 mr-2 flex-shrink-0" />
@@ -88,7 +94,7 @@ export function ResponsiveSidebar() {
           variant="ghost"
           size="sm"
           onClick={() => setIsOpen(true)}
-          className="lg:hidden fixed top-4 left-4 z-50 bg-background/80 backdrop-blur-sm border"
+          className="xl:hidden fixed top-5 left-4 z-50 bg-background/80 backdrop-blur-sm border"
         >
           <Menu className="h-4 w-4" />
         </Button>

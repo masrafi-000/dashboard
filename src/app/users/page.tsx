@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/model";
 import { useFetch } from "@/hooks/useFetch";
 import { useIsMobile } from "@/hooks/useMobile";
 import { circOut, motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 interface User {
@@ -165,8 +166,8 @@ export default function UsersPage() {
                                     @{user.username}
                                   </p>
                                 </div>
-                                <span className="text-xs text-primary">
-                                  View →
+                                <span className="text-xs text-primary flex items-center gap-2 font-medium">
+                                  View <ArrowRight size={16} />
                                 </span>
                               </div>
                               <div className="space-y-1">
