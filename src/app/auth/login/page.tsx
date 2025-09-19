@@ -1,5 +1,5 @@
 "use client"
-import { ArrowRight, BookOpen, Eye, EyeOff, LayoutDashboard, Lock, Mail } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, LayoutDashboard, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import {motion} from "framer-motion"
 import {z} from "zod"
@@ -192,7 +192,7 @@ export default function LoginPage() {
 
               <div className="text-center">
                 <p className="text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                   <Link
                     href="/auth/signup"
                     className="text-blue-600 hover:text-blue-700 font-medium"
